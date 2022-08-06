@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:submission_movie_catalog/movie/detail/movie_detail.dart';
 import 'package:submission_movie_catalog/movie/movie_item.dart';
 
 import '../model/movie_model.dart';
@@ -128,7 +129,16 @@ class MovieScenePage extends State<MoviePage> {
   }
 
   Widget buildMovieItem(BuildContext context, int index, Animation<double> animation) {
-    return MovieItem(index: index, movieData: movieListFiltered[index]);
+    return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MovieDetails(movieListFiltered[index].id ?? 0))
+          )
+        },
+        child: MovieItem(index: index, movieData: movieListFiltered[index])
+    );
   }
 
   scrollListener() {

@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio_logger/dio_logger.dart';
+import 'package:submission_movie_catalog/model/movie_details_model.dart';
+import 'package:submission_movie_catalog/model/tv_details_model.dart';
 
 class MovieApi {
   static const String baseUrl = "https://api.themoviedb.org/3/";

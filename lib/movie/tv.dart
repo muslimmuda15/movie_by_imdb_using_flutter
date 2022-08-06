@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:submission_movie_catalog/movie/detail/tv_detail.dart';
 import 'package:submission_movie_catalog/movie/tv_item.dart';
 import 'package:submission_movie_catalog/service/movie_api.dart';
 
@@ -128,7 +129,16 @@ class TvScenePage extends State<TvPage> {
   }
 
   Widget buildTvItem(BuildContext context, int index, Animation<double> animation) {
-    return TvItem(index: index, tvData: tvListFiltered[index]);
+    return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TvDetails(tvListFiltered[index].id ?? 0))
+          )
+        },
+        child: TvItem(index: index, tvData: tvListFiltered[index])
+    );
   }
 
   scrollListener() {

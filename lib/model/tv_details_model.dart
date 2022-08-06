@@ -1,38 +1,38 @@
-class TvData {
+class TvDetailsData {
   String? backdrop_path, original_name, overview, poster_path, first_air_date, name, homepage;
   int? id, vote_count, number_of_episodes, number_of_seasons;
   double? vote_average, popularity;
-  List genres = [], created_by = [], production_companies = [], seasons = [];
+  List<TvDetailsProductionData> genres = [], created_by = [], production_companies = [], seasons = [];
 
-  TvData.fromJson(Map data) {
-    backdrop_path = data["backdrop_path"];
-    original_name = data["original_name"];
-    overview = data["overview"];
-    poster_path = data["poster_path"];
-    first_air_date = data["first_air_date"];
-    name = data["name"];
-    id = data["id"];
-    vote_count = data["vote_count"];
-    vote_average = data["vote_average"].toDouble();
-    homepage = data["homepage"];
-    number_of_episodes = data["number_of_episodes"];
-    number_of_seasons = data["number_of_seasons"];
-    popularity = data["popularity"];
-    List genreData = data["genres"];
+  TvDetailsData.fromJson(Map? data) {
+    backdrop_path = data?["backdrop_path"];
+    original_name = data?["original_name"];
+    overview = data?["overview"];
+    poster_path = data?["poster_path"];
+    first_air_date = data?["first_air_date"];
+    name = data?["name"];
+    id = data?["id"];
+    vote_count = data?["vote_count"];
+    vote_average = data?["vote_average"].toDouble();
+    homepage = data?["homepage"];
+    number_of_episodes = data?["number_of_episodes"];
+    number_of_seasons = data?["number_of_seasons"];
+    popularity = data?["popularity"];
+    List genreData = data?["genres"];
     genreData.forEach((item) {
-      genres.add(item);
+      genres.add(TvDetailsProductionData.fromJson(item));
     });
-    List createdData = data["created_by"];
+    List createdData = data?["created_by"];
     createdData.forEach((item) {
-      created_by.add(item);
+      created_by.add(TvDetailsProductionData.fromJson(item));
     });
-    List productionData = data["production_companies"];
+    List productionData = data?["production_companies"];
     productionData.forEach((item) {
-      production_companies.add(item);
+      production_companies.add(TvDetailsProductionData.fromJson(item));
     });
-    List seasonsData = data["seasons"];
+    List seasonsData = data?["seasons"];
     seasonsData.forEach((item) {
-      seasons.add(item);
+      seasons.add(TvDetailsProductionData.fromJson(item));
     });
   }
 }

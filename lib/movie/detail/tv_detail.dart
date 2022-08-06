@@ -4,36 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:submission_movie_catalog/model/movie_details_model.dart';
-import 'package:submission_movie_catalog/movie/movie.dart';
-import 'package:submission_movie_catalog/util/helper.dart';
+import 'package:submission_movie_catalog/model/tv_details_model.dart';
 
 import '../../service/movie_api.dart';
+import '../../util/helper.dart';
 import '../../util/logger.dart';
 
-class MovieDetails extends StatefulWidget {
+class TvDetails extends StatefulWidget {
   late int id;
-  MovieDetails(int id) {
+  TvDetails(int id) {
     this.id = id;
   }
 
-  MovieDetailsPage createState() => MovieDetailsPage(id);
+  TvDetailsPage createState() => TvDetailsPage(id);
 }
 
-class MovieDetailsPage extends State<MovieDetails> {
+class TvDetailsPage extends State<TvDetails> {
   late int id;
   bool? loading = null;
-  String? movieError = null;
-  MovieDetailsData? data = null;
+  String? TvError = null;
+  TvDetailsData? data = null;
 
-  MovieDetailsPage(int id){
+  TvDetailsPage(int id){
     this.id = id;
   }
 
   @override
   void initState() {
     super.initState();
-    fetchDetailsMovie();
+    fetchDetailsTv();
   }
 
   @override
@@ -61,14 +60,14 @@ class MovieDetailsPage extends State<MovieDetails> {
       return Scaffold(
           body: Center(
               child: SizedBox(
-                  child: Text(movieError ?? "Something went wrong")
+                  child: Text(TvError ?? "Something went wrong")
               )
           )
       );
     } else {
       return Scaffold(
           appBar: AppBar(
-            title: Text(data?.title ?? ""),
+            title: Text(data?.name ?? ""),
             backgroundColor: Colors.blue,
           ),
           body: SafeArea(
@@ -114,7 +113,7 @@ class MovieDetailsPage extends State<MovieDetails> {
                                         Padding(
                                             padding: EdgeInsets.only(bottom: 8),
                                             child: Text(
-                                              data?.title ?? "",
+                                              data?.name ?? "",
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold
@@ -124,7 +123,7 @@ class MovieDetailsPage extends State<MovieDetails> {
                                         Padding(
                                             padding: EdgeInsets.only(bottom: 4),
                                             child: Text(Prettifier.date(
-                                                data?.release_date))),
+                                                data?.first_air_date))),
                                         Padding(
                                             padding: EdgeInsets.only(bottom: 4),
                                             child: RatingBarIndicator(
@@ -236,30 +235,30 @@ class MovieDetailsPage extends State<MovieDetails> {
     }
   }
 
-  Future fetchDetailsMovie() async {
+  Future fetchDetailsTv() async {
     MovieApi client = new MovieApi();
-    var response = await client.getMovieDetails(id: id);
+    var response = await client.getTvDetails(id: id);
 
     setState(() {
       try {
         if (response != null) {
           if (response.data != null) {
-            data = MovieDetailsData.fromJson(response.data);
+            data = TvDetailsData.fromJson(response.data);
             loading = true;
           } else {
-            movieError = "The response data is failed, try again!";
+            TvError = "The response data is failed, try again!";
             loading = false;
           }
         } else {
-          movieError = "The response is failed, try again!";
+          TvError = "The response is failed, try again!";
           loading = false;
         }
       } catch (e, stack) {
         if (e is DioError) {
-          movieError = "dio error : " + e.message;
+          TvError = "dio error : " + e.message;
           loading = false;
         } else {
-          movieError = "unknow error : " + e.toString();
+          TvError = "unknow error : " + e.toString();
           loading = false;
         }
         Log.d("Error", e, stack);
