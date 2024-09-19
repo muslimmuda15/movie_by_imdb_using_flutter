@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:dio_logger/dio_logger.dart';
-import 'package:submission_movie_catalog/model/movie_details_model.dart';
-import 'package:submission_movie_catalog/model/tv_details_model.dart';
 
 class MovieApi {
   static const String baseUrl = "https://api.themoviedb.org/3/";
@@ -13,35 +9,35 @@ class MovieApi {
 
   static Dio createApi() {
     var option = BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: 10000,
-      receiveTimeout: 60000,
-      contentType: "application/json;charset=utf-8",
-      queryParameters: {
-        "api_key": key
-      }
-    );
-    return Dio(option)
-      ..interceptors.add(dioLoggerInterceptor);
+        baseUrl: baseUrl,
+        connectTimeout: 10000,
+        receiveTimeout: 60000,
+        contentType: "application/json;charset=utf-8",
+        queryParameters: {"api_key": key});
+    return Dio(option)..interceptors.add(dioLoggerInterceptor);
   }
-  
-  Future<Response<Map>> getMovieList({required int page}) async {
-    Response<Map> response = await api.get("/discover/movie", queryParameters: { "language": "en-US", "page": page });
+
+  Future<Response<Map>?> getMovieList({required int page}) async {
+    Response<Map>? response = await api.get("/discover/movie",
+        queryParameters: {"language": "en-US", "page": page});
     return response;
   }
 
-  Future<Response<Map>> getTvList({required int page}) async {
-    Response<Map> response = await api.get("/tv/popular", queryParameters: { "language": "en-US", "page": page });
+  Future<Response<Map>?> getTvList({required int page}) async {
+    Response<Map>? response = await api.get("/tv/popular",
+        queryParameters: {"language": "en-US", "page": page});
     return response;
   }
 
-  Future<Response<Map>> getMovieDetails({required int id}) async {
-    Response<Map> response = await api.get("/movie/${id}", queryParameters: { "language": "en-US" });
+  Future<Response<Map>?> getMovieDetails({required int id}) async {
+    Response<Map>? response =
+        await api.get("/movie/$id", queryParameters: {"language": "en-US"});
     return response;
   }
 
-  Future<Response<Map>> getTvDetails({required int id}) async {
-    Response<Map> response = await api.get("/tv/${id}", queryParameters: { "language": "en-US" });
+  Future<Response<Map>?> getTvDetails({required int id}) async {
+    Response<Map>? response =
+        await api.get("/tv/$id", queryParameters: {"language": "en-US"});
     return response;
   }
 }

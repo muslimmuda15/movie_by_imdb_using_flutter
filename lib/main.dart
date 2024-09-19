@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:submission_movie_catalog/movie/tv.dart';
 
@@ -19,14 +18,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LandingPage(),
+      home: const LandingPage(),
     );
   }
 }
 
 class LandingPage extends StatefulWidget {
-  LandingPage({Key? key}) : super(key: key);
+  const LandingPage({super.key});
 
+  @override
   TabPage createState() => TabPage();
 }
 
@@ -47,11 +47,8 @@ class TabPage extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
-        children: <Widget>[
-          MoviePage(),
-          TvPage()
-        ],
-        index: tabIndex
+        index: tabIndex,
+        children: const [MoviePage(), TvPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
