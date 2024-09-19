@@ -194,7 +194,6 @@ class TvDetailsPage extends State<TvDetails> {
                       if (data?.production_companies.isNotEmpty ?? false)
                         SizedBox(
                           height: 100,
-                          child: Expanded(
                             child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
@@ -222,7 +221,6 @@ class TvDetailsPage extends State<TvDetails> {
                                 }
                               },
                             ),
-                          ),
                         )
                     ],
                   ),
