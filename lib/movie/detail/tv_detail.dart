@@ -66,6 +66,8 @@ class TvDetailsPage extends State<TvDetails> {
                    */
                 Image.network(
                   MovieApi.imageUrl + (data?.backdrop_path ?? ""),
+                  errorBuilder: (context, error, stackTrace) =>
+                      Image.asset('images/no_image.png', fit: BoxFit.contain),
                 ),
                 Container(
                   margin: const EdgeInsets.all(16),
@@ -84,8 +86,11 @@ class TvDetailsPage extends State<TvDetails> {
                             fit: BoxFit.cover,
                             width: 100,
                             errorBuilder: (context, error, stackTrace) =>
-                                Image.asset('assets/images/trampil-text.png',
-                                    width: 100, fit: BoxFit.contain),
+                                Image.asset(
+                              'images/no_image.png',
+                              fit: BoxFit.cover,
+                              width: 100,
+                            ),
                           ),
                           /**
                              * Title video, date, vote
@@ -170,7 +175,9 @@ class TvDetailsPage extends State<TvDetails> {
                       ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 16),
-                        child: Text(data?.overview ?? ""),
+                        child: Text(data?.overview!.trim().isNotEmpty ?? false
+                            ? data?.overview ?? "-"
+                            : "-"),
                       ),
                       if ((data?.production_companies
                                   .where((item) => item.logo_path != null)
@@ -184,37 +191,39 @@ class TvDetailsPage extends State<TvDetails> {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
-                      SizedBox(
-                        height: 100,
-                        child: Expanded(
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: data?.genres.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              if (data?.production_companies[index].logo_path ==
-                                  null) {
-                                return Container();
-                              } else {
-                                return Card(
-                                  semanticContainer: true,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Image.network(
-                                    MovieApi.imageUrl +
-                                        (data?.production_companies[index]
-                                                .logo_path ??
-                                            ""),
-                                    fit: BoxFit.fill,
-                                  ),
-                                );
-                              }
-                            },
+                      if (data?.production_companies.isNotEmpty ?? false)
+                        SizedBox(
+                          height: 100,
+                          child: Expanded(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: data?.production_companies.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                if (data?.production_companies[index]
+                                        .logo_path ==
+                                    null) {
+                                  return Container();
+                                } else {
+                                  return Card(
+                                    semanticContainer: true,
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Image.network(
+                                      MovieApi.imageUrl +
+                                          (data?.production_companies[index]
+                                                  .logo_path ??
+                                              ""),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ),
-                        ),
-                      )
+                        )
                     ],
                   ),
                 ),

@@ -42,6 +42,11 @@ class TvItem extends StatelessWidget {
                       ),
                     );
                   },
+                  errorBuilder: (context, error, stackTrace) => Image.asset(
+                    'images/no_image.png',
+                    fit: BoxFit.cover,
+                    height: 150,
+                  ),
                 ),
                 ListTile(
                   title: Text(

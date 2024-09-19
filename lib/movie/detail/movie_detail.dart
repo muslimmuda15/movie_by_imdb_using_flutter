@@ -66,6 +66,8 @@ class MovieDetailsPage extends State<MovieDetails> {
                    */
                 Image.network(
                   MovieApi.imageUrl + (data?.backdrop_path ?? ""),
+                  errorBuilder: (context, error, stackTrace) =>
+                      Image.asset('images/no_image.png', fit: BoxFit.contain),
                 ),
                 Container(
                   margin: const EdgeInsets.all(16),
@@ -82,7 +84,13 @@ class MovieDetailsPage extends State<MovieDetails> {
                           Image.network(
                               MovieApi.imageUrl + (data?.poster_path ?? ""),
                               fit: BoxFit.cover,
-                              width: 100),
+                              width: 100,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Image.asset(
+                                    'images/no_image.png',
+                                    fit: BoxFit.cover,
+                                    width: 100,
+                                  )),
                           /**
                              * Title video, date, vote
                              */
