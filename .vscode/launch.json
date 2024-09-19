@@ -13,8 +13,6 @@
         "chrome",
         "--web-port",
         "8000",
-        "--web-browser-flag",
-        "--disable-web-security",
         "--web-renderer",
         "canvaskit"
       ]

@@ -4,13 +4,8 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Check your flutter support using `flutter doctor`
+- `flutter pub get`
+- If you want to run flutter script in terminal, activate `rps` first `dart pub global activate rps`
+- running flutter in web using terrminal `rps runWeb` or select `movie_web_dev` in `run and debug` in VSCode
+- running flutter in android using terrminal `rps runAndroid` or select `movie_android_dev` in `run and debug` in VSCode

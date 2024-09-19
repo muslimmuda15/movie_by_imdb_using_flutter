@@ -96,5 +96,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 scripts:
-  runWeb: 'flutter run --profile -d chrome --web-browser-flag "--disable-web-security" --web-renderer canvaskit'
+  runWeb: 'flutter run --profile -d chrome --web-renderer canvaskit'
   runAndroid: 'flutter run -d "SM A336E"'

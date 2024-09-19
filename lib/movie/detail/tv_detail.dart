@@ -255,10 +255,10 @@ class TvDetailsPage extends State<TvDetails> {
         }
       } catch (e, stack) {
         if (e is DioError) {
-          tvError = "dio error : " + e.message;
+          tvError = "dio error : ${e.message}";
           loading = false;
         } else {
-          tvError = "unknow error : " + e.toString();
+          tvError = "unknow error : $e";
           loading = false;
         }
         Log.d("Error", e, stack);
